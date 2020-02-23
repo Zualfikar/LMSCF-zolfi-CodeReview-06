@@ -21,13 +21,13 @@ constructor(city,zipcode,address,img,id) {
 			 <img class="card-img-top m-1" width="300px" src="${this.img}">
 			 <div class="card-body old"><p class="card-title">${this.getloc()}</p>
        </div>
-       <button   class="btn btn-secondary visit" id="${this.id}" >${this.myvisit}</button>
+       <button  class="btn btn-secondary visit" id="${this.id}">${this.myvisit}</button>
 			 
 		 </div>`
 
 
   }
-  setmyvisist(myvisit){
+  setmyvisit(myvisit){
     this.myvisit=myvisit;
   }
   getmyvisit(){
@@ -53,13 +53,10 @@ class Restaurant extends Locationn{
     
 		return `<div class="card col-12 col-sm-12 col-md-5 col-lg-3 my-2 ">
 			 <img class="card-img-top m-2" width="300px" src="${this.img}">
-			
-				 <h4 class="card-title">${this.name}</h4>
+			<h4 class="card-title">${this.name}</h4>
          <div class="card-body old">
-				 <p class="card-text">
-                     ${super.getloc()}<br> ${this.type} <br> ${this.telephoneNumber}
-                     </p></div>
-                     <button type="button" class="btn btn-secondary" data-id="${this.id}" >did u visited</button>
+				 <p class="card-text">${super.getloc()}<br> ${this.type} <br> ${this.telephoneNumber}</p></div>
+                     <button class="btn btn-secondary visit" id="${this.id}" >${this.myvisit}</button>
                      </div>` 
 	}
      
@@ -79,14 +76,13 @@ class Eventt extends Restaurant {
 	}
         getdes (){return` <div class="card col-12 col-sm-12 col-md-5 col-lg-3 my-2">
 									 <img class="card-img-top m-2" src="${this.img}">
-								 		
-										<h4 class="card-title">${this.name}</h4>
+								 		<h4 class="card-title">${this.name}</h4>
                     <p class="card-text">${super.getloc()}</p>
                     <div class="card-body old">
 										<p class="card-text">Event on: ${this.eventDate} ${this.eventTime} Uhr <br>${this.price}
 										</p></div>
-									 <button type="button" class="btn btn-secondary" data-id="${this.id}" >did u visited</button>
-							 </div>` 
+									  <button   class="btn btn-secondary visit" id="${this.id}" >${this.myvisit}</button>
+                     </div>` 
 							}
 
 
@@ -110,21 +106,29 @@ for (let i = 0; i < items.length; i++) {
     }	
 	}
 }
-  document.querySelector('.visit').addEventListener("click", function(){
-    
-    var ff=document.getElementById(this.id);
-    var z= prompt("when u visited that location")
-    items[ff.getAttribute("id")].setmyvisist(z);
-    for (let i = 0; i < items.length; i++) {
-  if (i< 3){
-    document.getElementById("gallary1").innerHTML = "";
-    } else{
-        document.getElementById("gallary2").innerHTML = "";  
-    }  
-  }
-  
-  create();
+/*var dc =document.getElementsByClassName("visit");
+  document.querySelectorAll(".visit").addEventListener("click", function(){
+    document.querySelectorAll('.visit').forEach(item => {
+  item.addEventListener('click', event => {*/
 
-});
+    const buttons = document.querySelectorAll(".visit")
+for (const button of buttons) {
+  button.addEventListener('click', function(event) {
+    //...
+
+    //handle click
+ 
+    var ff=document.getElementById(button.id).getAttribute("id");
+    console.log(ff);
+    var z= prompt("when u visited that location");
+    
+    items[ff].setmyvisit(z);
+    document.getElementById("gallary1").innerHTML = "";
+   document.getElementById("gallary2").innerHTML = "";  
+      create();
+  })
+}
+/* })
+})*/
 
 

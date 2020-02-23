@@ -27,9 +27,9 @@ var Locationn = /** @class */ (function () {
         return "<div class=\" d-flex\"><img src=\"imgs/pin.png\" width=\"40px\" height=\"30px\"><p>" + this.address + ", " + this.city + ", " + this.zipcode + "</p></div>";
     };
     Locationn.prototype.getdes = function () {
-        return "<div class=\"card col-12 col-sm-12 col-md-5 col-lg-3 my-2\">\n\t\t\t <img class=\"card-img-top m-1\" width=\"300px\" src=\"" + this.img + "\">\n\t\t\t <div class=\"card-body old\"><p class=\"card-title\">" + this.getloc() + "</p>\n       </div>\n       <button   class=\"btn btn-secondary visit\" id=\"" + this.id + "\" >" + this.myvisit + "</button>\n\t\t\t \n\t\t </div>";
+        return "<div class=\"card col-12 col-sm-12 col-md-5 col-lg-3 my-2\">\n\t\t\t <img class=\"card-img-top m-1\" width=\"300px\" src=\"" + this.img + "\">\n\t\t\t <div class=\"card-body old\"><p class=\"card-title\">" + this.getloc() + "</p>\n       </div>\n       <button  class=\"btn btn-secondary visit\" id=\"" + this.id + "\">" + this.myvisit + "</button>\n\t\t\t \n\t\t </div>";
     };
-    Locationn.prototype.setmyvisist = function (myvisit) {
+    Locationn.prototype.setmyvisit = function (myvisit) {
         this.myvisit = myvisit;
     };
     Locationn.prototype.getmyvisit = function () {
@@ -52,7 +52,7 @@ var Restaurant = /** @class */ (function (_super) {
         return _this;
     }
     Restaurant.prototype.getdes = function () {
-        return "<div class=\"card col-12 col-sm-12 col-md-5 col-lg-3 my-2 \">\n\t\t\t <img class=\"card-img-top m-2\" width=\"300px\" src=\"" + this.img + "\">\n\t\t\t\n\t\t\t\t <h4 class=\"card-title\">" + this.name + "</h4>\n         <div class=\"card-body old\">\n\t\t\t\t <p class=\"card-text\">\n                     " + _super.prototype.getloc.call(this) + "<br> " + this.type + " <br> " + this.telephoneNumber + "\n                     </p></div>\n                     <button type=\"button\" class=\"btn btn-secondary\" data-id=\"" + this.id + "\" >did u visited</button>\n                     </div>";
+        return "<div class=\"card col-12 col-sm-12 col-md-5 col-lg-3 my-2 \">\n\t\t\t <img class=\"card-img-top m-2\" width=\"300px\" src=\"" + this.img + "\">\n\t\t\t<h4 class=\"card-title\">" + this.name + "</h4>\n         <div class=\"card-body old\">\n\t\t\t\t <p class=\"card-text\">" + _super.prototype.getloc.call(this) + "<br> " + this.type + " <br> " + this.telephoneNumber + "</p></div>\n                     <button class=\"btn btn-secondary visit\" id=\"" + this.id + "\" >" + this.myvisit + "</button>\n                     </div>";
     };
     return Restaurant;
 }(Locationn));
@@ -68,7 +68,7 @@ var Eventt = /** @class */ (function (_super) {
         return _this;
     }
     Eventt.prototype.getdes = function () {
-        return " <div class=\"card col-12 col-sm-12 col-md-5 col-lg-3 my-2\">\n\t\t\t\t\t\t\t\t\t <img class=\"card-img-top m-2\" src=\"" + this.img + "\">\n\t\t\t\t\t\t\t\t \t\t\n\t\t\t\t\t\t\t\t\t\t<h4 class=\"card-title\">" + this.name + "</h4>\n                    <p class=\"card-text\">" + _super.prototype.getloc.call(this) + "</p>\n                    <div class=\"card-body old\">\n\t\t\t\t\t\t\t\t\t\t<p class=\"card-text\">Event on: " + this.eventDate + " " + this.eventTime + " Uhr <br>" + this.price + "\n\t\t\t\t\t\t\t\t\t\t</p></div>\n\t\t\t\t\t\t\t\t\t <button type=\"button\" class=\"btn btn-secondary\" data-id=\"" + this.id + "\" >did u visited</button>\n\t\t\t\t\t\t\t </div>";
+        return " <div class=\"card col-12 col-sm-12 col-md-5 col-lg-3 my-2\">\n\t\t\t\t\t\t\t\t\t <img class=\"card-img-top m-2\" src=\"" + this.img + "\">\n\t\t\t\t\t\t\t\t \t\t<h4 class=\"card-title\">" + this.name + "</h4>\n                    <p class=\"card-text\">" + _super.prototype.getloc.call(this) + "</p>\n                    <div class=\"card-body old\">\n\t\t\t\t\t\t\t\t\t\t<p class=\"card-text\">Event on: " + this.eventDate + " " + this.eventTime + " Uhr <br>" + this.price + "\n\t\t\t\t\t\t\t\t\t\t</p></div>\n\t\t\t\t\t\t\t\t\t  <button   class=\"btn btn-secondary visit\" id=\"" + this.id + "\" >" + this.myvisit + "</button>\n                     </div>";
     };
     return Eventt;
 }(Restaurant));
@@ -89,17 +89,27 @@ function create() {
         }
     }
 }
-document.querySelector('.visit').addEventListener("click", function () {
-    var ff = document.getElementById(this.id);
-    var z = prompt("when u visited that location");
-    items[ff.getAttribute("id")].setmyvisist(z);
-    for (var i = 0; i < items.length; i++) {
-        if (i < 3) {
-            document.getElementById("gallary1").innerHTML = "";
-        }
-        else {
-            document.getElementById("gallary2").innerHTML = "";
-        }
-    }
-    create();
-});
+/*var dc =document.getElementsByClassName("visit");
+  document.querySelectorAll(".visit").addEventListener("click", function(){
+    document.querySelectorAll('.visit').forEach(item => {
+  item.addEventListener('click', event => {*/
+var buttons = document.querySelectorAll(".visit");
+var _loop_1 = function (button) {
+    button.addEventListener('click', function (event) {
+        //...
+        //handle click
+        var ff = document.getElementById(button.id).getAttribute("id");
+        console.log(ff);
+        var z = prompt("when u visited that location");
+        items[ff].setmyvisit(z);
+        document.getElementById("gallary1").innerHTML = "";
+        document.getElementById("gallary2").innerHTML = "";
+        create();
+    });
+};
+for (var _i = 0, buttons_1 = buttons; _i < buttons_1.length; _i++) {
+    var button = buttons_1[_i];
+    _loop_1(button);
+}
+/* })
+})*/
